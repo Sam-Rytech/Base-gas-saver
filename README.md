@@ -15,4 +15,10 @@ A simple tool to help you **save gas on Base** by showing the **current gas pric
 - Fully frontend and lightweight
 - Perfect for the #buildonbase + #talentprotocol challenge
 
+## 🚀 Quick Start
 
+```bash
+git clone https://github.com/Sam-Rytech/Base-gas-saver.git
+cd base-gas-saver
+npm install
+npm run dev
