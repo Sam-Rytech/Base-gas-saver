@@ -9,14 +9,14 @@
   },
   "dependencies": {
     "ethers": "^6.10.0",
+    "next": "15.4.5",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "next": "15.4.5",
-    "recharts": "^2.7.2"
+    "recharts": "^2.15.4"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.15",
     "@tailwindcss/postcss": "^4",
+    "autoprefixer": "^10.4.15",
     "tailwindcss": "^4"
   }
 }
