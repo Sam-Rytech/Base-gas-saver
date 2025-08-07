@@ -1,4 +1,5 @@
 'use client'
+
 import {
   LineChart,
   Line,
@@ -8,28 +9,29 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 
-export default function GasChart({
-  data,
-}: {
-  data: { time: string; price: number }[]
-}) {
+type GasEntry = {
+  time: string
+  price: number
+}
+
+export default function GasChart({ data }: { data: GasEntry[] }) {
   return (
-    <div className="h-64 mt-6">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="mt-6">
+      <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
-          <XAxis dataKey="time" hide />
+          <XAxis dataKey="time" />
           <YAxis domain={['auto', 'auto']} unit=" gwei" />
-          <Tooltip />
+          <Tooltip formatter={(value: number) => `${value.toFixed(2)} gwei`} />
           <Line
             type="monotone"
             dataKey="price"
-            stroke="#3b82f6"
+            stroke="#3B82F6"
             strokeWidth={2}
             dot={false}
+            isAnimationActive={false}
           />
         </LineChart>
       </ResponsiveContainer>
     </div>
   )
 }
-""
