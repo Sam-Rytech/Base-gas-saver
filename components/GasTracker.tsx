@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { ethers } from 'ethers'
+import { JsonRpcProvider, formatUnits } from 'ethers'
 import GasChart from './GasChart'
 
 const BASE_RPC = 'https://mainnet.base.org'
@@ -16,13 +16,15 @@ export default function GasTracker() {
   const [cheapest, setCheapest] = useState<GasEntry | null>(null)
 
   useEffect(() => {
-    const provider = new ethers.JsonRpcProvider(BASE_RPC)
+    const provider = new JsonRpcProvider(BASE_RPC)
 
     const fetchGas = async () => {
       try {
-        const gasHex = await provider.send('eth_gasPrice', [])
+        const gasHex: string = await provider.send('eth_gasPrice', [])
         const gas = BigInt(gasHex)
-        const gwei = +ethers.formatUnits(gas, 'gwei')
+
+        const gwei = +formatUnits(gas, 'gwei')
+
         const timestamp = new Date().toLocaleTimeString([], {
           hour: '2-digit',
           minute: '2-digit',
@@ -33,7 +35,7 @@ export default function GasTracker() {
         setCurrentGas(gwei.toFixed(2))
 
         setGasHistory((prev) => {
-          const updated = [...prev, newEntry].slice(-60) // Keep last 60 mins
+          const updated = [...prev, newEntry].slice(-60)
           const cheapestNow = updated.reduce((min, p) =>
             p.price < min.price ? p : min
           )
@@ -45,9 +47,8 @@ export default function GasTracker() {
       }
     }
 
-    fetchGas() // initial fetch
-    const interval = setInterval(fetchGas, 60_000) // every 1 min
-
+    fetchGas()
+    const interval = setInterval(fetchGas, 60_000)
     return () => clearInterval(interval)
   }, [])
 

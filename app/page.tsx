@@ -1,3 +1,5 @@
+"use client"
+
 import ConnectWallet from '../components/ConnectWallet'
 import GasTracker from '../components/GasTracker'
 
